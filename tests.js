@@ -26,6 +26,10 @@ describe("Note creation works properly", function() {
         assert( note.text != "")
         
     })
+    it("asserts that the parameters are strings", function () {
+         note = new Note("Hello World", "koya");
+         assert( (typeof note.text == "string") && (typeof note.author == "string"))
+    })
 })
 
 describe("Notes application increments number of notes as notes are added", function() {
@@ -58,7 +62,7 @@ describe("Notes application increments number of notes as notes are added", func
         noteapp.edit(0, "Changed");
         assert(noteapp.notes[0].text != previousText)
     })
-    it("notes searched for exists within the notelist", function() {
+    it("note called for exists within the notelist", function() {
         note = new Note("Hello world", "koya");
         noteapp = new NotesApplication();
         noteapp.addNote(note);

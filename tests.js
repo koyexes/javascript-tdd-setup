@@ -20,7 +20,7 @@ describe("Note creation works properly", function() {
         note = new Note("Hello World", "koya")
         assert( (note.text != "") || (note.author != ""))
     })
-    it("asserts that an empty parameter isn't passed into the setNote method"), function() {
+    it("asserts that an empty parameter isn't passed into the setNote method", function() {
         note = new Note("Hello World", "koya")
         note.setNote("Made changes") 
         assert( note.text == "Made changes")
@@ -35,5 +35,27 @@ describe("Notes application increments number of notes as notes are added", func
         assert(noteapp.notelist.length == 0)
         noteapp.addNote(note)
         assert(noteapp.notelist.length == 1)
+    })
+    it(" makes sure a note instance is passed into the add method", function() {
+        note = new Note("Hello world", "koya");
+        noteapp = new NotesApplication("koya");
+        noteapp.add(note);
+        assert(noteapp.notelist[noteapp.notelist.length -1] instanceof Note)
+    })
+    it("decrements the note list as notes are removed ", function() {
+        note = new Note("Hello world", "koya");
+        noteapp = new NotesApplication("koya");
+        noteapp.addNote(note)
+        assert(noteapp.notelist.length == 1)
+        noteapp.delete(0)
+        assert(noteapp.notelist.length == 0)
+    })
+    it("parameters passed into the edit method are different ", function() {
+        note = new Note("Hello world", "koya");
+        noteapp = new NotesApplication("koya");
+        noteapp.add(note);
+        previousText = note.text;
+        noteapp.edit(0, "Changed");
+        assert(noteapp.notelist[0].text != previousText)
     })
 })

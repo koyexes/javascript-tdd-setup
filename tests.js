@@ -16,19 +16,21 @@ describe("Note creation works properly", function() {
         note = new Note("Hello world", "koya")
         assert(note.text == "Hello world")
     })
-    it("asserts that empty parameters are not passed in", function () {
-        note = new Note("Hello World", "koya")
-        assert( (note.text != "") || (note.author != ""))
+    it("notes not set if an integer is passed in", function () {
+        note = new Note("Hello World", "koya");
+        note.setNote(6);
+        assert( note.text == "Hello World" );
     })
-    it("asserts that an empty parameter isn't passed into the setNote method", function() {
+    it("makes changes based on the parameter passed", function() {
         note = new Note("Hello World", "koya")
         note.setNote("Made changes") 
-        assert( note.text != "")
+        assert( note.text == "Made changes");
         
     })
-    it("asserts that the parameters are strings", function () {
+    it("makes no changes when an empty parameter is passed", function () {
          note = new Note("Hello World", "koya");
-         assert( (typeof note.text == "string") && (typeof note.author == "string"))
+         note.setNote("");
+         assert( note.text == "Hello World" );
     })
 })
 
@@ -40,11 +42,14 @@ describe("Notes application increments number of notes as notes are added", func
         noteapp.addNote(note)
         assert(noteapp.notes.length == 1)
     })
-    it(" makes sure a note instance is passed into the add method", function() {
+    it("search function should return true if found and false if not", function() {
         note = new Note("Hello world", "koya");
+        note2 = new Note("Hy World", "Gabriel")
         noteapp = new NotesApplication();
         noteapp.addNote(note);
-        assert(noteapp.notes[0] instanceof Note)
+        noteapp.addNote(note2);
+        assert(noteapp.search("Hello world") == true);
+        assert(noteapp.search("Taken") == false);
     })
     it("decrements the note list as notes are removed ", function() {
         note = new Note("Hello world", "koya");
@@ -58,9 +63,7 @@ describe("Notes application increments number of notes as notes are added", func
         note = new Note("Hello world", "koya");
         noteapp = new NotesApplication();
         noteapp.addNote(note);
-        previousText = note.text;
-        noteapp.edit(0, "Changed");
-        assert(noteapp.notes[0].text != previousText)
+        assert(noteapp.edit(0, "Hy World") == true );
     })
     it("note called for exists within the notelist", function() {
         note = new Note("Hello world", "koya");

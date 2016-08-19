@@ -27,10 +27,15 @@ describe("Note creation works properly", function() {
         assert( note.text == "Made changes");
         
     })
-    it("makes no changes when an empty parameter is passed", function () {
+    it("makes no changes to note content when an empty parameter is passed", function () {
          note = new Note("Hello World", "koya");
          note.setNote("");
          assert( note.text == "Hello World" );
+    })
+    it("makes no changes to note author when an empty parameter is passed", function () {
+         note = new Note("Hello World", "koya");
+         note.setAuthor("");
+         assert( note.author == "koya" );
     })
 })
 
@@ -65,7 +70,7 @@ describe("Notes application increments number of notes as notes are added", func
         noteapp.addNote(note);
         assert(noteapp.edit(0, "Hy World") == true );
     })
-    it("note called for exists within the notelist", function() {
+    it("note called for  exists within the notelist", function() {
         note = new Note("Hello world", "koya");
         noteapp = new NotesApplication();
         noteapp.addNote(note);
